@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Counter from './Counter';
 
 export const Internal = () => (

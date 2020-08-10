@@ -1,12 +1,14 @@
 import node_resolve from 'rollup-plugin-node-resolve';
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 import hotcss from 'rollup-plugin-hot-css';
 import static_files from 'rollup-plugin-static-files';
 import { terser } from 'rollup-plugin-terser';
 import prefresh from '@prefresh/nollup';
+import typescript from "@rollup/plugin-typescript";
+import commonjs from "@rollup/plugin-commonjs";
 
 let config = {
-    input: './src/main.js',
+    input: './src/main.tsx',
     output: {
         dir: 'dist',
         format: 'esm',
@@ -18,8 +20,12 @@ let config = {
             hot: process.env.NODE_ENV === 'development',
             file: 'styles.css'
         }),
-        babel(),
+        typescript(),
+        babel({
+            babelHelpers: "bundled"
+        }),
         node_resolve(),
+        commonjs(),
         process.env.NODE_ENV === 'development' && prefresh()
     ]
 }
